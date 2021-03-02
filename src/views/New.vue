@@ -73,12 +73,12 @@ export default {
   watch: {
     'localPlayground.formula': {
       handler (formula) {
-        this.updatePlaygroundResult(formula)  
+        this.updatePlaygroundResult(formula)
       }
     },
     'localPlayground.sample': {
       handler () {
-        this.updatePlaygroundResult(this.localPlayground.formula)  
+        this.updatePlaygroundResult(this.localPlayground.formula)
       }
     }
   },
@@ -88,7 +88,7 @@ export default {
     }
   },
   methods: {
-    updatePlaygroundResult(formula) {
+    updatePlaygroundResult (formula) {
       let playgroundSample
       try {
         playgroundSample = JSON.parse(this.localPlayground.sample || '{}')

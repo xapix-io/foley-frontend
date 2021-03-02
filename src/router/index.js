@@ -18,7 +18,7 @@ const routes = [
     component: New
   },
   {
-    path: '/playgrounds/:playgroundId',
+    path: '/playgrounds/:id',
     name: 'Edit',
     component: Edit
   }

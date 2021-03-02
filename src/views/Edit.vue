@@ -1,48 +1,62 @@
 <template>
-  <div class="detail">
-    <div class="m-3 loading-animation">
-      <router-link
-        class="d-flex align-items-center"
-        :to="{ name: 'Index' }">
-        <font-awesome-icon icon="angle-left" />
-        <h6 class="mb-0 ml-1">Back to Index</h6>
-      </router-link>
-      Playground
-    </div>
-    <div class="card card-background loading-animation">
-      <div class="card-body">
-        <div class="row">
-          <div class="col">
-            playground data
-          </div>
-        </div>
+  <div>
+    <Editor v-bind="localPlayground" @playground-updated="updatePlayground" />
+    <footer>
+      <div class="input-group input-group-sm">
+        <input type="text" v-model="localPlayground.name" class="form-control rounded-0" placeholder="a very complex task">
       </div>
-    </div>
+      <button class="btn btn-outline-success btn-sm w-100 d-block rounded-0" @click="savePlayground">
+        <font-awesome-icon icon="check" class="mr-1 small" />
+        Save
+      </button>
+    </footer>
   </div>
 </template>
 
 <script>
+import Editor from '@/components/Editor.vue'
 
 export default {
-  name: 'Detail',
-  computed: {
-    playgrounds () {
-      return this.$store.state.playgrounds
+  name: 'Edit',
+  components: {
+    Editor
+  },
+  data () {
+    return {
+      localPlayground: {
+        name: ''
+      }
+    }
+  },
+  watch: {
+    '$route.params.id': {
+      handler (id) {
+        this.getPlayground(id)
+      },
+      immediate: true
+    }
+  },
+  methods: {
+    getPlayground (id) {
+      this.$store.state.axios.get(`/playgrounds/${id}`).then(({ data }) => {
+        this.localPlayground = data
+      })
     },
-    selectedPlayground () {
-      return this.playgrounds.find(({ _id }) => _id === +(this.$route.params || {}).playgroundId) || {}
+    updatePlayground (playground) {
+      this.localPlayground = { ...this.localPlayground, ...playground }
     },
-    readableLastContact () {
-      return ''
-    },
-    readableBirthday () {
-      return ''
+    savePlayground () {
+      this.$store.state.axios.put(`/playgrounds/${this.$route.params.id}`, this.localPlayground).then(() => {
+        this.$router.push({
+          name: 'Index'
+        })
+      })
     }
   }
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 $border-radius: 1rem
 
 a

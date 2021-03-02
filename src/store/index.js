@@ -18,6 +18,9 @@ export default new Vuex.Store({
     },
     setPlaygrounds (state, playgrounds) {
       state.playgrounds = playgrounds
+    },
+    addPlayground (state, playground) {
+      state.playgrounds.push(playground)
     }
   }
 })

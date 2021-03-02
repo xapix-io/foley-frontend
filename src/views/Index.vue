@@ -1,11 +1,7 @@
 <template>
   <div
-    class="playground-list"
+    class="playground-list my-3"
     v-if="playgrounds">
-    <header class="px-3 py-2">
-      <h5 class="mb-0">Playgrounds</h5>
-      <small>Recent Activity</small>
-    </header>
     <div class="index-list list-group mx-3">
       <router-link
         :to="{ name: 'New' }"
@@ -35,7 +31,7 @@ export default {
     ListElement
   },
   mounted () {
-    // this.getPlaygrounds()
+    this.getPlaygrounds()
   },
   methods: {
     getPlaygrounds () {
@@ -53,9 +49,6 @@ export default {
 </script>
 
 <style lang="sass">
-
-.index-list
-  margin-top: 80px
 
 .add-playground-button
   opacity: .6

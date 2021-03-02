@@ -1,27 +1,17 @@
 <template>
   <div class="list-group-item card-background loading-animation">
     <div class="row align-items-center">
-      <div class="col-1">
-        <div class="badge badge-secondary mx-1">
-          {{ name.last[0] }}
-        </div>
-        <div class="badge badge-primary mx-1">
-          {{ name.first[0] }}
-        </div>
+      <div class="col">
+        {{ name }}
       </div>
       <div class="col">
-        {{ gender === 'm' ? 'Mr.' : 'Ms.' }}
-        {{ name.first }}
-        {{ name.last }}
+        <span class="badge badge-secondary">
+          {{ formula }}
+        </span>
       </div>
       <div class="col d-flex align-items-center justify-content-end">
-        <span title="Playground Lifetime Value">CLV</span>
-        <div class="badge badge-success ml-2 mr-3">
-          <!-- asuming USD -->
-          $ {{ playgroundLifetimeValue }}
-        </div>
         <router-link
-          :to="{ name: 'Edit', params: { playgroundId: _id } }"
+          :to="{ name: 'Edit', params: { id: _id } }"
           class="mr-2 btn btn-outline-secondary btn-sm"><font-awesome-icon icon="search" /> Inspect</router-link>
         <button
           class="btn btn-outline-danger btn-sm"
@@ -39,17 +29,9 @@ export default {
   name: 'ListElement',
   props: {
     _id: Number,
-    name: {
-      type: Object,
-      default: () => ({
-        first: '',
-        last: ''
-      })
-    },
-    birthday: String,
-    gender: String,
-    lastContact: String,
-    playgroundLifetimeValue: Number
+    formula: String,
+    sample: String,
+    name: String
   },
   methods: {
     deletePlayground () {
@@ -75,7 +57,8 @@ $border-radius: 1rem
       color: white !important
 
 .list-group-item
-  // yeah, we're a bit lazy here
+  background-color: rgba(25, 25, 25, 1) !important
+  color: white
   transition: all .2s ease-out
   &:first-child
     border-radius: $border-radius $border-radius 0 0 !important

@@ -1,14 +1,19 @@
 <template>
-  <div v-if="loadingDone">
-    <router-view />
+  <div v-if="loadingDone" class="d-flex">
+    <List />
+    <router-view class="position-relative content-container" />
   </div>
 </template>
 
 <script>
+import List from '@/components/IndexList.vue'
 import axios from 'axios'
 
 export default {
   name: 'App',
+  components: {
+    List
+  },
   data () {
     return {
       loadingDone: false
@@ -20,8 +25,9 @@ export default {
   },
   methods: {
     init () {
+      // TODO: put into .env
       const axiosInstance = axios.create({
-        baseURL: 'http://backend:3000/api',
+        baseURL: 'http://localhost:3000/api',
         timeout: 3000
       })
 
@@ -54,6 +60,11 @@ $box-shadow-outline-white: 0 0 0 3px rgba(255, 255, 255, .3)
 $box-shadow-card: $box-shadow-outline-white, $box-shadow-sketch, 0 25px 30px -15px rgba(0, 0, 0, .08), 0 15px 18px -30px rgba(0, 0, 0, .04)
 $loading-animation-duration: .4s
 
+.input-group
+  input.form-control
+    background-color: rgba(20, 20, 20, 1)
+    border-color: rgba(35, 35, 35, 1)
+
 .alert
   &.alert-dark-bg
     background-color: rgba(20, 20, 20, 1)
@@ -66,16 +77,9 @@ $loading-animation-duration: .4s
   animation: hidden $delay, fadeInBack calc(#{$duration} * 2)
   animation-delay: 0s, $delay
 
-header
-  position: absolute
-  left: 0
-  right: 0
-  top: 0
-  z-index: 1000
-  background-color: rgba(25, 25, 25, 1)
-  color: $white
-  a
-    color: $white !important
+.content-container
+  width: 100%
+  height: 100vh
 
 body
   background-color: #1e1e1e !important
@@ -94,5 +98,15 @@ h6
   @for $i from 1 through 30
     &:nth-child(#{$i})
       +onload-fadeIn(calc(#{$i} - 1), $loading-animation-duration)
+
+footer
+  position: absolute
+  right: 0
+  left: 0
+  bottom: 0
+  z-index: 1000
+  .btn-outline-success
+    &:not(:hover)
+      background-color: #1e1e1e
 
 </style>

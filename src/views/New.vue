@@ -73,14 +73,12 @@ export default {
   watch: {
     'localPlayground.formula': {
       handler (formula) {
-        let playgroundSample
-        try {
-          playgroundSample = JSON.parse(this.localPlayground.sample || '{}')
-          this.error = {}
-          this.localPlayground.result = this.compileAndExecuteFormula(formula, playgroundSample)
-        } catch (error) {
-          this.error = error
-        }
+        this.updatePlaygroundResult(formula)  
+      }
+    },
+    'localPlayground.sample': {
+      handler () {
+        this.updatePlaygroundResult(this.localPlayground.formula)  
       }
     }
   },
@@ -90,6 +88,16 @@ export default {
     }
   },
   methods: {
+    updatePlaygroundResult(formula) {
+      let playgroundSample
+      try {
+        playgroundSample = JSON.parse(this.localPlayground.sample || '{}')
+        this.error = {}
+        this.localPlayground.result = this.compileAndExecuteFormula(formula, playgroundSample)
+      } catch (error) {
+        this.error = error
+      }
+    },
     compileAndExecuteFormula (formula, context) {
       let compiled
       try {

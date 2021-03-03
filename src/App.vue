@@ -1,19 +1,15 @@
 <template>
   <div v-if="loadingDone" class="d-flex">
-    <List />
+    <!-- <List /> -->
     <router-view class="position-relative content-container" />
   </div>
 </template>
 
 <script>
-import List from '@/components/IndexList.vue'
 import axios from 'axios'
 
 export default {
   name: 'App',
-  components: {
-    List
-  },
   data () {
     return {
       loadingDone: false

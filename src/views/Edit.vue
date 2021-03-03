@@ -2,9 +2,9 @@
   <div>
     <Editor v-bind="localPlayground" @playground-updated="updatePlayground" />
     <footer>
-      <div class="input-group input-group-sm">
+      <!-- <div class="input-group input-group-sm">
         <input type="text" v-model="localPlayground.name" class="form-control rounded-0" placeholder="a very complex task">
-      </div>
+      </div> -->
       <button class="btn btn-outline-success btn-sm w-100 d-block rounded-0" @click="savePlayground">
         <font-awesome-icon icon="check" class="mr-1 small" />
         Save
@@ -46,9 +46,12 @@ export default {
       this.localPlayground = { ...this.localPlayground, ...playground }
     },
     savePlayground () {
-      this.$store.state.axios.put(`/playgrounds/${this.$route.params.id}`, this.localPlayground).then(() => {
+      this.$store.state.axios.post('/playgrounds', this.localPlayground).then(({ data }) => {
         this.$router.push({
-          name: 'Index'
+          name: 'Edit',
+          params: {
+            id: data._id
+          }
         })
       })
     }

@@ -2,9 +2,9 @@
   <div>
     <Editor @playground-updated="updatePlayground" />
     <footer>
-      <div class="input-group input-group-sm">
+      <!-- <div class="input-group input-group-sm">
         <input type="text" v-model="playground.name" class="form-control rounded-0" placeholder="a very complex task">
-      </div>
+      </div> -->
       <button class="btn btn-outline-success btn-sm w-100 d-block rounded-0" @click="savePlayground">
         <font-awesome-icon icon="check" class="mr-1 small" />
         Save

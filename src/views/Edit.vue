@@ -43,7 +43,7 @@ export default {
       })
     },
     updatePlayground (playground) {
-      this.localPlayground = { ...this.localPlayground, ...playground }
+      this.localPlayground = playground
     },
     savePlayground () {
       this.$store.state.axios.post('/playgrounds', this.localPlayground).then(({ data }) => {

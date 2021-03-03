@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     updatePlayground (playground) {
-      this.playground = { ...playground }
+      this.playground = playground
     },
     savePlayground () {
       this.$store.state.axios.post('/playgrounds', this.playground).then(({ data }) => {

@@ -23,7 +23,7 @@ export default {
     init () {
       // TODO: put into .env
       const axiosInstance = axios.create({
-        baseURL: 'http://localhost:3000/api',
+        baseURL: '/api',
         timeout: 3000
       })
 
